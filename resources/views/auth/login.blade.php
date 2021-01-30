@@ -1,10 +1,10 @@
 @extends('backend.layouts.app')
 
 @section('title')
-    Dashboard
+    Login
 @endsection
 @section('login')
-    <div class="row">
+    <div class="row" id="login-row">
         <div class="col-sm-12">
 
             <div class="wrapper-page">
@@ -14,27 +14,43 @@
                         <div class="account-logo-box">
                             <h2 class="text-uppercase text-center">
                                 <a href="index.html" class="text-success">
-                                    <span><img src="assets/images/logo_dark.png" alt="" height="30"></span>
+                                    <span><img src="{{asset('backend/images/logo_dark.png')}}" alt="" height="30"></span>
                                 </a>
                             </h2>
-                            <h5 class="text-uppercase font-bold m-b-5 m-t-50">Sign In</h5>
+                            <h5 class="text-uppercase font-bold m-b-5 m-t-30">Sign In</h5>
                             <p class="m-b-0">Login to your Admin account</p>
                         </div>
                         <div class="account-content">
-                            <form class="form-horizontal" action="#">
-
-                                <div class="form-group m-b-20 row">
+                            <form method="POST" action="{{ route('login') }}" class="form-horizontal">
+                                @csrf
+                                <div class="form-group {{ $errors->has('email') ? ' has-danger ' : '' }}m-b-20 row">
                                     <div class="col-12">
-                                        <label for="emailaddress">Email address</label>
-                                        <input class="form-control" type="email" id="emailaddress" required="" placeholder="john@deo.com">
+                                        <label for="emailaddress" class="">Email address</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input name="email" class="form-control {{ $errors->has('email') ? 'form-control-danger' : '' }}" value="{{ old('email') }}" type="email" id="emailaddress" required="" placeholder="Enter Your Email">
+                                        </div>
+                                        @if ($errors->has('email'))
+                                            <span class="form-control-feedback" role="alert">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
 
-                                <div class="form-group row m-b-20">
+                                <div class="form-group {{ $errors->has('password') ? ' has-danger ' : '' }}m-b-20 row">
                                     <div class="col-12">
                                         <a href="page-recoverpw.html" class="text-muted pull-right"><small>Forgot your password?</small></a>
-                                        <label for="password">Password</label>
-                                        <input class="form-control" type="password" required="" id="password" placeholder="Enter your password">
+                                        <label for="password" class="form-control-label">Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                            <input name="password" class="form-control {{ $errors->has('password') ? 'form-control-danger' : '' }}" type="password" id="password" required="" placeholder="Enter Your password">
+                                        </div>
+                                        @if ($errors->has('password'))
+                                            <span class="form-control-feedback" role="alert">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -65,9 +81,9 @@
                                         <button type="button" class="btn m-r-5 btn-facebook waves-effect waves-light">
                                             <i class="fa fa-facebook"></i>
                                         </button>
-                                        <button type="button" class="btn m-r-5 btn-googleplus waves-effect waves-light">
+                                        <a href="{{ Route('google.login') }}" class="btn m-r-5 btn-googleplus waves-effect waves-light">
                                             <i class="fa fa-google"></i>
-                                        </button>
+                                        </a>
                                         <button type="button" class="btn m-r-5 btn-twitter waves-effect waves-light">
                                             <i class="fa fa-twitter"></i>
                                         </button>
@@ -75,9 +91,11 @@
                                 </div>
                             </div>
 
-                            <div class="row m-t-50">
+                            <div class="row m-t-10">
                                 <div class="col-sm-12 text-center">
-                                    <p class="text-muted">Don't have an account? <a href="page-register.html" class="text-dark m-l-5"><b>Sign Up</b></a></p>
+                                    <p class="text-muted">Don't have an account? 
+                                        <a href="{{ Route('register') }}" class="text-dark m-l-5"><b>Sign Up</b></a>
+                                    </p>
                                 </div>
                             </div>
 
@@ -85,11 +103,16 @@
                     </div>
                 </div>
                 <!-- end card-box-->
-
-
             </div>
             <!-- end wrapper -->
-
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function(){
+            $('#login-row').parents('body').addClass('bg-accpunt-pages')
+        })
+    </script>
+@endpush

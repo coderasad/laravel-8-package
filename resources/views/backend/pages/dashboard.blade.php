@@ -5,7 +5,7 @@
 @endsection
 
 @push('css')
-<link href="{{asset('backend/plugins/c3/c3.min.css')}}" rel="stylesheet" type="text/css"  />
+<link href="{{asset('backend/plugins/c3/c3.min.css')}}" rel="stylesheet" type="text/css"/>
 @endpush
 
 @section('content')

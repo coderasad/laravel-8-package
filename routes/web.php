@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    // return view('backend.pages.dashboard');
     return view('auth.login');
 });
 
@@ -13,7 +12,7 @@ Auth::routes();
 
 
 // Google Login Routes 
-Route::get('/google-login', 'Auth\GoogleAuthController@redirectToProvider');
+Route::get('/google-login', 'Auth\GoogleAuthController@redirectToProvider')->name('google.login');
 Route::get('/callback', 'Auth\GoogleAuthController@handleProviderCallback');
 
 // Admin Route 

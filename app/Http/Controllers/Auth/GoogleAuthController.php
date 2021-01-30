@@ -32,7 +32,7 @@ class GoogleAuthController extends Controller
                 $user->save();
                 Auth::loginUsingId($user->id);
             }
-            return redirect()->to('/home');
+            return redirect()->to('/dashboard');
         } catch (Exception $e) {
             return 'error';
         }
