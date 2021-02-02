@@ -1,1 +1,7 @@
-custome.css
+.ar-alert-msg {
+    position: fixed;
+    top: 12px;
+    right: 0;
+    z-index: 9999;
+    width: fit-content;
+}

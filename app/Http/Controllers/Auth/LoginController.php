@@ -38,6 +38,8 @@ class LoginController extends Controller
     {
         if(Auth::check() && Auth::user()->role->id==1)
         {
+            session()->flash('level', 'success');
+            session()->flash('msg', 'Update Successfully');
             $this->redirectTo = route('admin.dashboard');
         }
         else
