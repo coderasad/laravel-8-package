@@ -19,6 +19,7 @@
         @stack('css')
         <!-- App css -->
         <link href="{{asset('backend/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+        {{-- <link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet" /> <!-- yajra dataTable--> --}}
         <link href="{{asset('backend/css/icons.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('backend/css/metismenu.min')}}.css" rel="stylesheet" type="text/css" />
         <link href="{{asset('backend/css/style.css')}}" rel="stylesheet" type="text/css" />

@@ -2,17 +2,41 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Yajra;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class CategoryController extends Controller
 {
     
     public function index()
     {
-        $data['category'] = category::orderBy('id', 'DESC')->where('status', 1)->get();
-        return view('backend.pages.category.index')->with($data);
+        // return view('backend.pages.category.index');
+        $data = Yajra::orderBy('id','DESC')->get();
+        if (request()->ajax()) {
+            return Datatables::of($data)
+            // ->addIndexColumn()
+            ->addColumn('created_at', function($row){
+                return $row->created_at ? \Carbon\Carbon::parse($row->created_at)->format('d-m-Y') : '';
+            })
+            ->addColumn('action', function($row){
+                return '<div class="btn-group">
+                            <a class="btn btn-sm btn-info"href="'.route('admin.category.edit', $row->id).'">View</a>
+                            <a target="_blank" class="btn btn-sm btn-primary"href="'.route('admin.category.edit', Crypt::encrypt($row->id)).'">edit</a>
+                        </div>';
+            })
+            ->toJson();
+        }
+        return view('backend.pages.category.index', $data);
+    }
+    public function anyData()
+    {
+        
+        return DataTables::of(Yajra::query())->make(true);
+        
     }
 
     // store 

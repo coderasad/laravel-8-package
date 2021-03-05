@@ -3,6 +3,7 @@
 
         <!-- jQuery  -->
         <script src="{{asset('backend/js/jquery.min.js')}}"></script>
+        {{-- <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script><!-- yajra dataTable--> --}}
         <script src="{{asset('backend/js/tether.min.js')}}"></script><!-- Tether for Bootstrap -->
         <script src="{{asset('backend/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('backend/js/metisMenu.min.js')}}"></script>
@@ -21,7 +22,7 @@
         <script src="{{ asset('backend/plugins/autocomplete/jquery.mockjax.js') }}" type="text/javascript"></script>
         <script src="{{ asset('backend/plugins/autocomplete/jquery.autocomplete.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('backend/plugins/autocomplete/countries.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('backend/pages/jquery.autocomplete.init.js') }}" type="text/javascript"></script>
+		{{-- <script src="{{ asset('backend/pages/jquery.autocomplete.init.js') }}" type="text/javascript"></script> --}}
 		<script src="{{ asset('backend/pages/jquery.form-advanced.init.js') }}" type="text/javascript" ></script>
 		
         <script>

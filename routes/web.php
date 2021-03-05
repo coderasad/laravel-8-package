@@ -21,6 +21,7 @@ Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin', 'middlewa
     // Category Route====
     Route::resource('category', 'CategoryController');     
     Route::get('category/{id}/destroy', 'CategoryController@destroy')->name('category.destroy');
+    Route::get('anydata', 'CategoryController@anyData')->name('anyData');
     // Sub Category Route====
     Route::resource('subcategory', 'SubCategoryController');     
     Route::get('subcategory/{id}/destroy', 'SubCategoryController@destroy')->name('subcategory.destroy'); 											
