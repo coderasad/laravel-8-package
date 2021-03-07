@@ -14,31 +14,10 @@ class CategoryController extends Controller
     
     public function index()
     {
-        // return view('backend.pages.category.index');
-        $data = Yajra::orderBy('id','DESC')->get();
-        if (request()->ajax()) {
-            return Datatables::of($data)
-            // ->addIndexColumn()
-            ->addColumn('created_at', function($row){
-                return $row->created_at ? \Carbon\Carbon::parse($row->created_at)->format('d-m-Y') : '';
-            })
-            ->addColumn('action', function($row){
-                return '<div class="btn-group">
-                            <a class="btn btn-sm btn-info"href="'.route('admin.category.edit', $row->id).'">View</a>
-                            <a target="_blank" class="btn btn-sm btn-primary"href="'.route('admin.category.edit', Crypt::encrypt($row->id)).'">edit</a>
-                        </div>';
-            })
-            ->toJson();
-        }
+        $data['category'] = Category::where('status', 1)->latest()->get();
         return view('backend.pages.category.index', $data);
     }
-    public function anyData()
-    {
-        
-        return DataTables::of(Yajra::query())->make(true);
-        
-    }
-
+    
     // store 
     public function store(Request $request)
     {
@@ -64,27 +43,24 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $data['category'] = category::findorfail($id);
-        $data['catall'] = category::all();
-        return view('admin.category.edit')->with($data);
+        return view('backend.pages.category.edit', $data);
     }
     
     // update 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'ac_type_id' => 'required',
-            'name' => 'required|unique:categories,name,' .$id. ',id',
-        ]); 
-
+            'category_name' => 'required|unique:categories,category_name,' .$id. ',id',
+        ]);   
         $category = category::findorfail($id);
-        $category->name = $request->name;
-        $category->ac_type_id = $request->ac_type_id;
-        if($request->hasFile('img')){
+        $category->category_name = $request->category_name;
+        if($request->hasFile('category_img')){
             if(isset($request->old_img)){
                 unlink('public/'.$request->old_img);
             }
-            $category->img = $request->file('img')->store('backend/image/category', ['disk' => 'public_uploads']);
-        };        
+            $category->category_img = $request->file('category_img')->store('backend/image/category', ['disk' => 'public_uploads']);
+        };
+          
         $db = $category->save();
 
         if($db){
@@ -105,7 +81,7 @@ class CategoryController extends Controller
         $category = category::findorfail($id);
         if($category) {
             $category->status = 0;
-            $category->name = $category->id.$category->name;
+            $category->category_name = $category->id.$category->category_name;
             $category->save();            
             session()->flash('level', 'danger');
             session()->flash('msg', 'Delete Successfully');

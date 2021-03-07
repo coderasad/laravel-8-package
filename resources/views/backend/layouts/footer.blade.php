@@ -11,7 +11,7 @@
         <script src="{{asset('backend/js/jquery.slimscroll.js')}}"></script>
         <!-- extra page js  -->        
 		@stack('js')
-
+		<script src="{{ asset('js/sweetalert.min.js') }}"></script>
 		<script src="{{ asset('backend/plugins/switchery/switchery.min.js') }}"></script>
         <script src="{{ asset('backend/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js') }}"></script>
         <script src="{{ asset('backend/plugins/select2/js/select2.min.js') }}" type="text/javascript"></script>

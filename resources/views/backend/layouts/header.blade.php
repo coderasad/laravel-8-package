@@ -9,14 +9,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{asset('backend/images/favicon.ico')}}">
-        <!-- extra page css -->  
+        <!-- extra page css --> 
+        @stack('css') 
         <link href="{{asset('backend/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css')}}" rel="stylesheet" />
         <link href="{{asset('backend/plugins/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" />
         <link href="{{asset('backend/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('backend/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" />
         <link href="{{asset('backend/plugins/switchery/switchery.min.css')}}" rel="stylesheet" >
-
-        @stack('css')
         <!-- App css -->
         <link href="{{asset('backend/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         {{-- <link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet" /> <!-- yajra dataTable--> --}}

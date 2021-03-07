@@ -1,6 +1,7 @@
 @extends('backend.layouts.app')
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.jqueryui.min.css">
+    <link rel="stylesheet" src="{{ asset('backend/plugins/sweet-alert2/sweetalert2.min.css') }}">
 @endpush
 @section('title')
     Category
@@ -19,7 +20,7 @@
         </div>
     </div><!-- end row -->
     <div class="row">
-        {{-- <div class="col-md-4">
+        <div class="col-md-4">
             <div class="card-box">
                 <form action="{{ Route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -49,44 +50,42 @@
                     </div>
                 </form>
             </div>
-        </div> --}}
-        <div class="col-md-12">
+        </div>
+        <div class="col-md-8">
             <div class="card-box">
                 <div class="table-responsive"> 
-                    <table class="table table-bordered" id="users-table">
+                    <table class="table table-bordered nowrap" id="">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                <th>Sl No</th>
+                                <th>Category Name</th>
+                                <th>Image</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            @foreach ($category as $data)
+                                <tr>
+                                    <td> {{$loop->iteration}} </td>
+                                    <td> {{$data->category_name}} </td>
+                                    <td> <img class='w-25' src="{{asset($data->category_img)}}" alt=""> </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{route('admin.category.edit', $data->id)}}" class="btn btn-info" ><span class="fa fa-edit"></span></a>
+                                            <form action="{{route('admin.category.destroy', $data->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button id="deletes" type="submit" class="btn btn-danger"><span class="fa fa-trash"></span></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
     </div>
-@push('js')
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.jqueryui.min.js"></script>
-<script>
-    $(document).ready( function () {
-        $('#users-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{ route('admin.category.index') }}',
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'action', orderable: false, searchable: false }
-            ]
-        });
-    })
-</script>
-@endpush   
+  
 @endsection

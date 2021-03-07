@@ -19,12 +19,9 @@ Route::get('/callback', 'Auth\GoogleAuthController@handleProviderCallback');
 Route::group(['as'=>'admin.','prefix' => 'admin','namespace'=>'Admin', 'middleware'=>['auth','admin']], function () {											
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
     // Category Route====
-    Route::resource('category', 'CategoryController');     
-    Route::get('category/{id}/destroy', 'CategoryController@destroy')->name('category.destroy');
-    Route::get('anydata', 'CategoryController@anyData')->name('anyData');
+    Route::resource('category', 'CategoryController');  
     // Sub Category Route====
-    Route::resource('subcategory', 'SubCategoryController');     
-    Route::get('subcategory/{id}/destroy', 'SubCategoryController@destroy')->name('subcategory.destroy'); 											
+    Route::resource('subcategory', 'SubCategoryController');      											
 });											
      
 // Author Route 
